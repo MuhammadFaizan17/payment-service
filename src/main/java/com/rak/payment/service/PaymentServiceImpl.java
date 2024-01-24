@@ -1,6 +1,7 @@
 package com.rak.payment.service;
 
-import com.rak.payment.adapter.Adapter;
+import com.rak.payment.adapter.FeeAdapter;
+import com.rak.payment.adapter.StudentAdapter;
 import com.rak.payment.domain.PaymentDetail;
 import com.rak.payment.dto.FeeDTO;
 import com.rak.payment.dto.PaymentDetailDTO;
@@ -23,15 +24,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    private final Adapter adapter;
+    private final StudentAdapter studentAdapter;
+    private final FeeAdapter feeAdapter;
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
 
     @Override
     public PaymentDetailDTO payFee(String rollNumber) {
-        StudentDTO studentDTO = adapter.getStudentByRollNo(rollNumber);
+        StudentDTO studentDTO = studentAdapter.getStudentByRollNo(rollNumber);
         if (null != studentDTO && StringUtils.hasLength(studentDTO.getGrade())) {
-            FeeDTO feeDTO = adapter.getFeeByGrade(studentDTO.getGrade(), studentDTO.getSchoolId());
+            FeeDTO feeDTO = feeAdapter.getFeeByGrade(studentDTO.getGrade(), studentDTO.getSchoolId());
             PaymentDetail paymentDetail = paymentMapper.toEntity(studentDTO, feeDTO);
             paymentDetail.setCardType(CardScheme.VISA.getScheme());
             paymentDetail.setTransactionDateTime(LocalDateTime.now());
@@ -46,15 +48,15 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDetailDTO getByPaymentRefNum(String paymentRefNum) {
-        return paymentMapper.toDTO(paymentRepository.findFirstByPaymentRefNumber(paymentRefNum));
+        return paymentMapper.toDTO(paymentRepository.findFirstByPaymentRefNumber(paymentRefNum)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "record not found against: " + paymentRefNum)));
 
 
     }
 
     @Override
-    public List<PaymentDetailDTO> getPaymentByRollNumber(String tollNumber) {
-        return paymentMapper.toDTO(paymentRepository.findAllByRollNumber(tollNumber));
-
+    public List<PaymentDetailDTO> getPaymentByRollNumber(String rollNumber) {
+        return paymentMapper.toDTO(paymentRepository.findAllByRollNumber(rollNumber));
 
     }
 }

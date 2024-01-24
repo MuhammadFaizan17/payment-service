@@ -31,9 +31,9 @@ public class PaymentController {
 
     @GetMapping("{paymentRefNum}")
     @Operation(summary = "Get Payment Detail by paymentRefNum")
-    public ResponseEntity<PaymentDetailDTO> getPaymentDetailByPaymentRefNum(@PathVariable("paymentRefNum") String bankRefNum) {
+    public ResponseEntity<PaymentDetailDTO> getPaymentDetailByPaymentRefNum(@PathVariable("paymentRefNum") String paymentRefNum) {
 
-        return new ResponseEntity<>(paymentService.getByPaymentRefNum(bankRefNum), HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.getByPaymentRefNum(paymentRefNum), HttpStatus.OK);
     }
 
     @GetMapping

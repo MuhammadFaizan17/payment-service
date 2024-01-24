@@ -10,7 +10,7 @@ import java.util.Random;
 public class Utility {
     public static long generateRandom12DigitNumber() {
         Random random = new Random();
-        return 1_000_000_000_000L + (long) (random.nextDouble() * 9_000_000_000L);
+        return 1_000_000_000_000_000L + (long) (random.nextDouble() * 9_000_000_000_000L);
     }
 
     private static String formatAsUuid(long number) {

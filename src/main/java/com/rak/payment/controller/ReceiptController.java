@@ -20,7 +20,7 @@ public class ReceiptController {
 
     private final DocumentServiceImpl documentService;
 
-    @GetMapping()
+    @GetMapping
     @ResponseBody
     public ResponseEntity<byte[]> viewReceipt(@RequestParam String paymentRefNumber) throws Exception {
         byte[] pdfBytes = documentService.generatePdf("Skiply", paymentRefNumber);

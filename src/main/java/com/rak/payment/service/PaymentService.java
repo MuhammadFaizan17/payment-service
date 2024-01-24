@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface PaymentService {
     PaymentDetailDTO payFee(String studentId);
+
     PaymentDetailDTO getByPaymentRefNum(String paymentRefNum);
-    List<PaymentDetailDTO> getPaymentByRollNumber(String tollNumber);
+
+    List<PaymentDetailDTO> getPaymentByRollNumber(String rollNumber);
 }
