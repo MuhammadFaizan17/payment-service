@@ -8,8 +8,8 @@ import static java.util.Arrays.stream;
 @Getter
 @NoArgsConstructor
 public enum CardScheme {
-    MASTER_CARD("MASTER CARD", ""),
-    VISA("VISA", "");
+    MASTER_CARD("MASTER CARD", "https://www.transparentpng.com/thumb/mastercard/mastercard-png-8.png"),
+    VISA("VISA", "https://www.visa.com.au/dam/VCOM/regional/ve/romania/blogs/hero-image/visa-logo-800x450.jpg");
 
     String scheme;
     String logoURL;

@@ -1,5 +1,6 @@
 package com.rak.payment.domain;
 
+import com.rak.payment.enums.CardScheme;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class PaymentDetail {
     private String paymentRefNumber;
 
     @Column(nullable = false)
-    private String cardType;
+    private CardScheme cardType;
 
 
     @Column(nullable = false)
@@ -55,5 +56,9 @@ public class PaymentDetail {
 
     @Column(nullable = false)
     private String rollNumber;
+
+    @Column
+    private String schoolLogoUrl;
+
 
 }

@@ -32,5 +32,8 @@ public class StudentDTO implements Serializable {
     private String schoolName;
 
     private String rollNumber;
+
+    private String schoolLogoUrl;
+
 }
 

@@ -35,10 +35,11 @@ public class PaymentServiceImpl implements PaymentService {
         if (null != studentDTO && StringUtils.hasLength(studentDTO.getGrade())) {
             FeeDTO feeDTO = feeAdapter.getFeeByGrade(studentDTO.getGrade(), studentDTO.getSchoolId());
             PaymentDetail paymentDetail = paymentMapper.toEntity(studentDTO, feeDTO);
-            paymentDetail.setCardType(CardScheme.VISA.getScheme());
             paymentDetail.setTransactionDateTime(LocalDateTime.now());
             paymentDetail.setCardNo(String.valueOf(Utility.generateFormattedRandomNumber()));
+            paymentDetail.setCardType(Utility.getCardType());
             paymentDetail.setPaymentRefNumber("TRX-" + UUID.randomUUID().toString().substring(0, 5));
+            paymentDetail.setSchoolLogoUrl(studentDTO.getSchoolLogoUrl());
             return paymentMapper.toDTO(paymentRepository.save(paymentDetail));
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "we cannot process your at this time");

@@ -1,5 +1,6 @@
 package com.rak.payment.util;
 
+import com.rak.payment.enums.CardScheme;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
@@ -8,7 +9,11 @@ import java.util.Random;
 
 @UtilityClass
 public class Utility {
+
+    private Integer iteration = 1;
+
     public static long generateRandom12DigitNumber() {
+        iteration = iteration + 1;
         Random random = new Random();
         return 1_000_000_000_000_000L + (long) (random.nextDouble() * 9_000_000_000_000L);
     }
@@ -51,6 +56,13 @@ public class Utility {
         }
 
         return true; // All fields are null
+    }
+
+    public static CardScheme getCardType() {
+        if (iteration % 2 == 0)
+            return CardScheme.MASTER_CARD;
+        return CardScheme.VISA;
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.rak.payment.repo;
 
 import com.rak.payment.domain.PaymentDetail;
+import com.rak.payment.enums.CardScheme;
 import com.rak.payment.repository.PaymentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ public class PaymentRepoTest {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    String imageUrl="https://play-lh.googleusercontent.com/1h4qUW1ECJ9bd27nDbkvc3uGhwFeFGt0yIGIRBQspXW24uJ0i34ePxMy-EVAXSX9Pg=w600-h300-pc0xffffff-pd";
+
+
     @Test
     public void testFindFirstByPaymentRefNumberPositive() {
-        PaymentDetail paymentDetail = new PaymentDetail(1L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", "TRX-12345", LocalDateTime.now(), "1234");
+        PaymentDetail paymentDetail = new PaymentDetail(1L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", CardScheme.MASTER_CARD, LocalDateTime.now(), "1234",imageUrl);
 
         paymentRepository.save(paymentDetail);
 
@@ -41,8 +45,8 @@ public class PaymentRepoTest {
     @Test
     public void testFindAllByRollNumberPositive() {
 
-        PaymentDetail paymentDetail1 = new PaymentDetail(1L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", "TRX-12345", LocalDateTime.now(), "1234");
-        PaymentDetail paymentDetail2 = new PaymentDetail(2L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", "TRX-12345", LocalDateTime.now(), "1234");
+        PaymentDetail paymentDetail1 = new PaymentDetail(1L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", CardScheme.MASTER_CARD, LocalDateTime.now(), "1234",imageUrl);
+        PaymentDetail paymentDetail2 = new PaymentDetail(2L, "Faizan", "G1", 2.3, "Ali", "VISA", "44444-1111-1110-2202", "REF123", CardScheme.MASTER_CARD, LocalDateTime.now(), "1234",imageUrl);
 
 
         paymentRepository.save(paymentDetail1);
