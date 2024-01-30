@@ -1,6 +1,6 @@
 package com.rak.payment.controller;
 
-import com.rak.payment.service.DocumentServiceImpl;
+import com.rak.payment.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReceiptController {
 
-    private final DocumentServiceImpl documentService;
+    private final DocumentService documentService;
 
     @GetMapping
     @ResponseBody

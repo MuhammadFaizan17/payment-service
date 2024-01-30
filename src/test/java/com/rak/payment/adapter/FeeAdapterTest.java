@@ -31,7 +31,7 @@ public class FeeAdapterTest {
     }
 
     @Test
-    void getFeeByIdPositiveCase() {
+    public void getFeeByIdPositiveCase() {
 
         Long schoolId = 1L;
         String grade = "G1";
@@ -48,7 +48,7 @@ public class FeeAdapterTest {
     }
 
     @Test
-    void getFeeByIdRestClientException() {
+    public void getFeeByIdRestClientException() {
 
         Long schoolId = 1L;
         String grade = "G1";
