@@ -6,7 +6,6 @@ import com.rak.payment.domain.PaymentDetail;
 import com.rak.payment.dto.FeeDTO;
 import com.rak.payment.dto.PaymentDetailDTO;
 import com.rak.payment.dto.StudentDTO;
-import com.rak.payment.enums.CardScheme;
 import com.rak.payment.mapper.PaymentMapper;
 import com.rak.payment.repository.PaymentRepository;
 import com.rak.payment.util.Utility;
@@ -30,14 +29,15 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentMapper paymentMapper;
 
     @Override
-    public PaymentDetailDTO payFee(String rollNumber) {
+    public PaymentDetailDTO payFee(String rollNumber, String cardSerialNumber, Integer cvv) {
         StudentDTO studentDTO = studentAdapter.getStudentByRollNo(rollNumber);
         if (null != studentDTO && StringUtils.hasLength(studentDTO.getGrade())) {
             FeeDTO feeDTO = feeAdapter.getFeeByGrade(studentDTO.getGrade(), studentDTO.getSchoolId());
             PaymentDetail paymentDetail = paymentMapper.toEntity(studentDTO, feeDTO);
+            paymentDetail.setId(null);
             paymentDetail.setTransactionDateTime(LocalDateTime.now());
-            paymentDetail.setCardNo(String.valueOf(Utility.generateFormattedRandomNumber()));
-            paymentDetail.setCardType(Utility.getCardType());
+            paymentDetail.setCardNo(Utility.formatCardNumber(cardSerialNumber));
+            paymentDetail.setCardType(Utility.detectCardType(cardSerialNumber));
             paymentDetail.setPaymentRefNumber("TRX-" + UUID.randomUUID().toString().substring(0, 5));
             paymentDetail.setSchoolLogoUrl(studentDTO.getSchoolLogoUrl());
             return paymentMapper.toDTO(paymentRepository.save(paymentDetail));

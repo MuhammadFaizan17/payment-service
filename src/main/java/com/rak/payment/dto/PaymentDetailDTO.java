@@ -1,6 +1,5 @@
 package com.rak.payment.dto;
 
-import com.rak.payment.enums.CardScheme;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +31,7 @@ public class PaymentDetailDTO implements Serializable {
     private String guardianName;
 
 
-    private CardScheme cardType;
+    private String cardType;
 
 
     private String cardNo;

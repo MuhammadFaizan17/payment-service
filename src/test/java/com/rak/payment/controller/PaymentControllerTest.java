@@ -32,17 +32,17 @@ public class PaymentControllerTest {
     @Test
     public void testCreateSchoolPositive() {
         PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
-        when(paymentService.payFee("123")).thenReturn(paymentDetail);
+        when(paymentService.payFee("123", "4111-1111-1111-1111", 1234)).thenReturn(paymentDetail);
 
-        ResponseEntity<PaymentDetailDTO> responseEntity = paymentController.createSchool("123");
+        ResponseEntity<PaymentDetailDTO> responseEntity = paymentController.payFee("123", "4111-1111-1111-1111", 1234);
         assertEquals(HttpStatus.ACCEPTED, responseEntity.getStatusCode());
         assertEquals(paymentDetail, responseEntity.getBody());
     }
 
     @Test
     public void testCreateSchoolNegative() {
-        when(paymentService.payFee("456")).thenReturn(null);
-        ResponseEntity<PaymentDetailDTO> responseEntity = paymentController.createSchool("456");
+        when(paymentService.payFee("456", "4111-1111-1111-1111", 1234)).thenReturn(null);
+        ResponseEntity<PaymentDetailDTO> responseEntity = paymentController.payFee("456", "4111-1111-1111-1111", 1234);
         assertEquals(HttpStatus.ACCEPTED, responseEntity.getStatusCode());
         assertNull(responseEntity.getBody());
     }

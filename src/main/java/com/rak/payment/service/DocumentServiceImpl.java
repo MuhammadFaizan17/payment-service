@@ -5,6 +5,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.rak.payment.dto.PaymentDetailDTO;
+import com.rak.payment.enums.CardScheme;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
             variables.put("cardType", dto.getCardType());
             variables.put("grade", dto.getGrade());
             variables.put("logoUrl", dto.getSchoolLogoUrl());
-            variables.put("cardLogoUrl", dto.getCardType().getLogoURL());
+            variables.put("cardLogoUrl", CardScheme.getSchemeByString(dto.getCardType()).getLogoURL());
 
             context.setVariables(variables);
             return generatePdfFromTemplate(templateName, context);

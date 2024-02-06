@@ -24,9 +24,9 @@ public class PaymentController {
 
     @PostMapping
     @Operation(summary = "pay fee")
-    public ResponseEntity<PaymentDetailDTO> createSchool(@RequestParam("rollNo") String rollNo) {
+    public ResponseEntity<PaymentDetailDTO> payFee(@RequestParam("rollNo") String rollNo, @RequestParam("cardNumber") String cardNumber, @RequestParam("cvv") Integer cvv) {
 
-        return new ResponseEntity<>(paymentService.payFee(rollNo), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(paymentService.payFee(rollNo, cardNumber, cvv), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{paymentRefNum}")
